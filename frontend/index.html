@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Supermarket POS - Modern Point of Sale System</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-content">
+      <div class="logo">Supermarket POS</div>
+      <div class="search-container">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" class="search-input" placeholder="Search products...">
+      </div>
+      <div class="stats-mini">
+        <span id="todayStats" style="color: var(--text-muted); font-size: 0.9rem;">Loading stats...</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <!-- Stats Cards -->
+    <div class="stats-container">
+      <div class="stat-card">
+        <div class="stat-label">Total Products</div>
+        <div class="stat-value" id="totalProducts">0</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Cart Items</div>
+        <div class="stat-value" id="cartCount">0</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Today's Sales</div>
+        <div class="stat-value" id="todaySales">0</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Today's Revenue</div>
+        <div class="stat-value" id="todayRevenue">Rs. 0</div>
+      </div>
+    </div>
+
+    <!-- Main Layout -->
+    <div class="main-layout">
+      <!-- Products Section -->
+      <div class="products-section">
+        <h2 style="margin-bottom: 1rem; font-size: 1.5rem;">Products</h2>
+
+        <!-- Category Filter -->
+        <div class="category-filter" id="categoryFilter">
+          <button class="category-btn active" data-category="all">All Products</button>
+        </div>
+
+        <!-- Products Grid -->
+        <div class="products-grid" id="productsGrid">
+          <!-- Products will be loaded here -->
+        </div>
+      </div>
+
+      <!-- Cart Section -->
+      <div class="cart-section">
+        <div class="cart-container">
+          <div class="cart-header">
+            <h2 class="cart-title">
+              🛒 Cart
+              <span class="cart-badge" id="cartBadge">0</span>
+            </h2>
+          </div>
+
+          <!-- Customer Form -->
+          <div class="customer-form">
+            <div class="form-group">
+              <label class="form-label">Customer Name</label>
+              <input type="text" id="customerName" class="form-input" placeholder="Enter customer name">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Payment Method</label>
+              <select id="paymentMethod" class="form-select">
+                <option value="Cash">Cash</option>
+                <option value="Card">Card</option>
+                <option value="Mobile">Mobile Payment</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Discount (Rs.)</label>
+              <input type="number" id="discount" class="form-input" placeholder="0.00" min="0" step="0.01">
+            </div>
+          </div>
+
+          <!-- Cart Items -->
+          <div class="cart-items" id="cartItems">
+            <div class="cart-empty">
+              <div class="cart-empty-icon">🛒</div>
+              <p>Your cart is empty</p>
+              <p style="font-size: 0.875rem;">Add products to get started</p>
+            </div>
+          </div>
+
+          <!-- Cart Summary -->
+          <div class="cart-summary" id="cartSummary" style="display: none;">
+            <div class="summary-row">
+              <span>Subtotal:</span>
+              <span id="subtotal">Rs. 0.00</span>
+            </div>
+            <div class="summary-row">
+              <span>Discount:</span>
+              <span id="discountAmount">Rs. 0.00</span>
+            </div>
+            <div class="summary-row total">
+              <span>Total:</span>
+              <span class="value" id="total">Rs. 0.00</span>
+            </div>
+          </div>
+
+          <!-- Cart Actions -->
+          <div class="cart-actions">
+            <button class="btn btn-primary btn-block" onclick="completeSale()" id="checkoutBtn" disabled>
+              💳 Complete Sale
+            </button>
+            <button class="btn btn-secondary btn-block" onclick="viewSalesHistory()">
+              📊 View Sales History
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Receipt Modal -->
+  <div class="modal" id="receiptModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">Receipt</h2>
+        <button class="close-btn" onclick="closeModal()">&times;</button>
+      </div>
+      <div class="receipt" id="receipt">
+        <!-- Receipt content will be generated here -->
+      </div>
+      <div class="cart-actions mt-3">
+        <button class="btn btn-primary btn-block" onclick="printReceipt()">
+          🖨️ Print Receipt
+        </button>
+        <button class="btn btn-secondary btn-block" onclick="closeModal()">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sales History Modal -->
+  <div class="modal" id="salesModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">Sales History</h2>
+        <button class="close-btn" onclick="closeSalesModal()">&times;</button>
+      </div>
+      <div id="salesHistory">
+        <!-- Sales history will be loaded here -->
+      </div>
+    </div>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+
+</html>
